@@ -1,0 +1,34 @@
+<?php
+
+return [
+    // User Role
+    'USER_ROLE_STAFF' => 1,
+    'USER_ROLE_CUSTOMER' => 2,
+
+    'USER_ROLE_STAFF_C_LEVEL' => 1,
+    'USER_ROLE_STAFF_MANAGEMENT' => 2,
+    'USER_ROLE_STAFF_DEPARTMENT_MANAGER' => 3,
+    'USER_ROLE_STAFF_TEAM_MANAGER' => 4,
+    'USER_ROLE_STAFF_STAFF' => 5,
+    'USER_ROLE_CUSTOMER_MANAGEMENT' => 6,
+    'USER_ROLE_CUSTOMER_MANAGER' => 7,
+    'USER_ROLE_CUSTOMER_STAFF' => 8,
+
+    // User Detail Page Tab
+    'USER_CUSTOMER_TAB_INFO' => 1,
+    'USER_CUSTOMER_TAB_SITE' => 2,
+
+    // User Status Constants
+    'USER_STAGE_ACTIVE' => 1,
+    'USER_STAGE_INACTIVE' => 2,
+    'USER_STAGE_PROSPECT' => 3,
+
+    'USER_STATUS_PAID' => 1,
+    'USER_STATUS_UNPAID' => 2,
+
+    'USER_STATUS_LOST' => 3,
+    'USER_STATUS_NEGOTIATION' => 4,
+    'USER_STATUS_NEW' => 5,
+    'USER_STATUS_WON' => 6,
+
+];
