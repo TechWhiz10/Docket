@@ -9,6 +9,10 @@ use App\Livewire\Customers;
 use App\Livewire\CustomerAdd;
 use App\Livewire\Companies;
 
+use App\Livewire\Location;
+use App\Livewire\Staff;
+use App\Livewire\Department;
+use App\Livewire\Team;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,3 +49,8 @@ Route::get('/user/{id}',                    UsersCustomerDetail::class)->name('u
 Route::get('/customer',                     Customers::class)->name('customer');
 Route::get('/customer/add',                 CustomerAdd::class)->name('customer.add');
 Route::get('/company',                      Companies::class)->name('company');
+
+Route::get('/location',                      Location::class)->name('location');
+Route::get('/staff',                         Staff::class)->name('staff');
+Route::get('/department',                    Department::class)->name('department');
+Route::get('/team',                          Team::class)->name('team');

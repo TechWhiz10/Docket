@@ -27,15 +27,15 @@
             <div class="mt-4">
                 <x-label for="role" value="{{ __('Role') }}" />
                 <x-select id="role" class="block mt-1 w-full" name="role">
-                    <option></option>
+                    <option hidden ></option>
                     <option value="{{ config('constants.USER_ROLE_STAFF_C_LEVEL') }}">C-Level ( Staff )</option>
                     <option value="{{ config('constants.USER_ROLE_STAFF_MANAGEMENT') }}">Management ( Staff )</option>
                     <option value="{{ config('constants.USER_ROLE_STAFF_DEPARTMENT_MANAGER') }}">Department Manager ( Staff )</option>
                     <option value="{{ config('constants.USER_ROLE_STAFF_TEAM_MANAGER') }}">Team Manager ( Staff )</option>
                     <option value="{{ config('constants.USER_ROLE_STAFF_STAFF') }}">Staff ( Staff )</option>
-                    <option value="{{ config('constants.USER_ROLE_CUSTOMER_MANAGEMENT') }}">Management ( Customer )</option>
-                    <option value="{{ config('constants.USER_ROLE_CUSTOMER_MANAGER') }}">Manager ( Customer )</option>
-                    <option value="{{ config('constants.USER_ROLE_CUSTOMER_STAFF') }}">Staff ( Customer )</option>
+                    {{-- <option value="{{ config('constants.USER_ROLE_CUSTOMER_MANAGEMENT') }}">Management ( Customer )</option> --}}
+                    {{-- <option value="{{ config('constants.USER_ROLE_CUSTOMER_MANAGER') }}">Manager ( Customer )</option> --}}
+                    {{-- <option value="{{ config('constants.USER_ROLE_CUSTOMER_STAFF') }}">Staff ( Customer )</option> --}}
                 </x-select>
             </div>
 

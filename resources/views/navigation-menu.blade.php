@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white">
+<nav x-data="{ open: false }" class="bg-white h-full">
     <!-- Primary Navigation Menu -->
     <div class="px-2 bg-white shadow min-h-screen h-full">
         <div class="flex flex-col items-center py-4">
@@ -34,6 +34,38 @@
             <div class="hidden space-x-8 sm:-my-px sm:flex py-2 text-center">
                 <x-nav-link href="{{ route('company') }}" :active="request()->routeIs('company')">
                     {{ __('Company List') }}
+                </x-nav-link>
+            </div>
+            @endif
+
+            @if (!(Auth::user()->role == config('constants.USER_ROLE_CUSTOMER_MANAGEMENT') || Auth::user()->role == config('constants.USER_ROLE_CUSTOMER_MANAGER') || Auth::user()->role == config('constants.USER_ROLE_CUSTOMER_STAFF')))
+            <div class="hidden space-x-8 sm:-my-px sm:flex py-2 text-center">
+                <x-nav-link href="{{ route('team') }}" :active="request()->routeIs('team')">
+                    {{ __('Team List') }}
+                </x-nav-link>
+            </div>
+            @endif
+
+            @if (!(Auth::user()->role == config('constants.USER_ROLE_CUSTOMER_MANAGEMENT') || Auth::user()->role == config('constants.USER_ROLE_CUSTOMER_MANAGER') || Auth::user()->role == config('constants.USER_ROLE_CUSTOMER_STAFF')))
+            <div class="hidden space-x-8 sm:-my-px sm:flex py-2 text-center">
+                <x-nav-link href="{{ route('staff') }}" :active="request()->routeIs('staff')">
+                    {{ __('Staff List') }}
+                </x-nav-link>
+            </div>
+            @endif
+
+            @if (!(Auth::user()->role == config('constants.USER_ROLE_CUSTOMER_MANAGEMENT') || Auth::user()->role == config('constants.USER_ROLE_CUSTOMER_MANAGER') || Auth::user()->role == config('constants.USER_ROLE_CUSTOMER_STAFF')))
+            <div class="hidden space-x-8 sm:-my-px sm:flex py-2 text-center">
+                <x-nav-link href="{{ route('location') }}" :active="request()->routeIs('location')">
+                    {{ __('Location List') }}
+                </x-nav-link>
+            </div>
+            @endif
+
+            @if (!(Auth::user()->role == config('constants.USER_ROLE_CUSTOMER_MANAGEMENT') || Auth::user()->role == config('constants.USER_ROLE_CUSTOMER_MANAGER') || Auth::user()->role == config('constants.USER_ROLE_CUSTOMER_STAFF')))
+            <div class="hidden space-x-8 sm:-my-px sm:flex py-2 text-center">
+                <x-nav-link href="{{ route('department') }}" :active="request()->routeIs('department')">
+                    {{ __('Department List') }}
                 </x-nav-link>
             </div>
             @endif

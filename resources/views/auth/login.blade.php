@@ -7,9 +7,9 @@
         <x-validation-errors class="mb-4" />
 
         @if (session('status'))
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ session('status') }}
-            </div>
+        <div class="mb-4 font-medium text-sm text-green-600">
+            {{ session('status') }}
+        </div>
         @endif
 
         <form method="POST" action="{{ route('login') }}">
@@ -32,17 +32,27 @@
                 </label>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-
-                <x-button class="ml-4 bg-blue-500 hover:bg-blue-700">
+            <div class="mt-4 flex justify-center items-center">
+                <x-button class=" justify-center items-center bg-blue-500 hover:bg-blue-700 w-full">
                     {{ __('Log in') }}
                 </x-button>
             </div>
+
+            <div class="mt-4 flex justify-center items-center">
+                <a href="{{ route('register') }}" class="text-white text-sm flex justify-center bg-blue-500 hover:bg-blue-700 rounded-md border border-gray-300 p-1.5 w-full">
+                    {{ __('Sign Up') }}
+                </a>
+            </div>
+
+            <div class="flex items-center justify-center mt-4">
+                @if (Route::has('password.request'))
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
+                    {{ __('Forgot your password?') }}
+                </a>
+                @endif
+
+            </div>
+
         </form>
     </x-authentication-card>
 </x-guest-layout>

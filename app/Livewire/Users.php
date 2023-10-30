@@ -13,7 +13,7 @@ class Users extends Component {
     public $is_open = 0, $is_create = 0;
 
     public function render() {
-        $this->users = User::whereIn('role', [3, 4, 5])->get();
+        $this->users = User::whereIn('role', [1, 2, 3, 4, 5])->get();
         return view('livewire.users.index');
     }
 

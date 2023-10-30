@@ -1,6 +1,6 @@
 <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        {{ __('Company List') }}
+        {{ __('Customer List') }}
     </h2>
     <div class="hidden sm:flex sm:items-center sm:ml-6">
         <!-- Settings Dropdown -->
@@ -45,7 +45,6 @@
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}" x-data>
                         @csrf
-
                         <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
                             {{ __('Log Out') }}
                         </x-dropdown-link>
@@ -79,54 +78,82 @@
                         </div>
                     </div>
                 @endif
-                <button wire:click="create()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3">Add New Company</button>
-                @if($is_open)
-                    @include('livewire.companies.create')
-                @endif
-                <table class="w-full table-auto">
+                <a href="{{ route('customer.add') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-5">
+                    Add New Staff
+                </a>
+                <table class="w-full table-auto mt-5">
                     <thead>
-                        <tr class="bg-gray text-left">
-                            <th class="w-20 py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                        <tr class="bg-gray text-left text-sm">
+                            <th class="w-20 py-4 px-4 font-medium text-black uppercase dark:text-white xl:pl-11">
                                 No
                             </th>
-                            <th class="min-w-[80px] py-4 px-4 font-medium text-black dark:text-white">
+                            <th class="w-40 py-4 px-4 font-medium text-black uppercase dark:text-white">
                                 Logo
                             </th>
-                            <th class="min-w-[80px] py-4 px-4 font-medium text-black dark:text-white">
+                            <th class="py-4 px-4 font-medium text-black uppercase dark:text-white">
                                 Name
                             </th>
-                            <th class="min-w-[80px] py-4 px-4 font-medium text-black dark:text-white">
-                                Site
+                            <th class="py-4 px-4 font-medium text-black uppercase dark:text-white">
+                                Primary Contact
                             </th>
-                            <th class="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                                Location
+                            <th class="py-4 px-4 font-medium text-black uppercase dark:text-white">
+                                Account Manager
                             </th>
-                            <th class="py-4 px-4 font-medium text-black dark:text-white">
+                            <th class="w-60 py-4 px-4 font-medium text-black uppercase dark:text-white">
+                                Stage and Status
+                            </th>
+                            @if (Auth::user()->role == config('constants.USER_ROLE_STAFF_C_LEVEL') || Auth::user()->role == config('constants.USER_ROLE_STAFF_MANAGEMENT'))
+                            <th class="py-4 px-4 font-medium text-black uppercase dark:text-white">
                                 Actions
                             </th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($companies as $key => $company)
+                        @foreach ($customers as $key => $customer)
                         <tr>
                             <td class="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                                 {{ $key + 1 }}
                             </td>
-                            <td class="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                <img class="w-20 h-20" src="{{ asset('logos/' . $company->logo_file) }}" />
+                            <td class="border-b border-[#eee] py-5 px-4 dark:border-strokedark flex items-center justify-center">
+                                <img class="w-10 h-10" src="{{ asset('logos/' . $customer->customer_logo) }}" />
                             </td>
                             <td class="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                {{ $company->name }}
+                                <a class="text-blue-700 underline" href="{{ route('user.customer-detail', $customer->id) }}">
+                                    {{ $customer->customer_name }}
+                                </a>
                             </td>
                             <td class="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                {{ $company->site }}
+                                {{ $customer->first_name . ' ' . $customer->last_name }}
                             </td>
                             <td class="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                {{ $company->location }}
+                                {{ $customer->account_manager }}
                             </td>
+                            <td class="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                                @if ($customer->stage == config('constants.USER_STAGE_ACTIVE'))
+                                    @if ($customer->status == config('constants.USER_STATUS_PAID'))
+                                        <div class="w-full inline-flex rounded-full bg-success bg-opacity-50 py-2 px-5 text-sm font-medium">Active | Paid</div>
+                                    @elseif ($customer->status == config('constants.USER_STATUS_UNPAID'))
+                                        <div class="w-full inline-flex rounded-full bg-success bg-opacity-50 py-2 px-5 text-sm font-medium">Active | Unpaid</div>
+                                    @endif
+                                @elseif ($customer->stage == config('constants.USER_STAGE_INACTIVE'))
+                                    <div class="w-full inline-flex rounded-full bg-graydark bg-opacity-20 py-2 px-5 text-sm font-medium">Inactive</div>
+                                @elseif ($customer->stage == config('constants.USER_STAGE_PROSPECT'))
+                                    @if ($customer->status == config('constants.USER_STATUS_LOST'))
+                                        <div class="w-full inline-flex rounded-full bg-primary bg-opacity-20 py-2 px-5 text-sm font-medium">Prospect | Lost</div>
+                                    @elseif ($customer->status == config('constants.USER_STATUS_NEGOTIATION'))
+                                        <div class="w-full inline-flex rounded-full bg-primary bg-opacity-20 py-2 px-5 text-sm font-medium">Prospect | Negotiation</div>
+                                    @elseif ($customer->status == config('constants.USER_STATUS_NEW'))
+                                        <div class="w-full inline-flex rounded-full bg-primary bg-opacity-20 py-2 px-5 text-sm font-medium">Prospect | New</div>
+                                    @elseif ($customer->status == config('constants.USER_STATUS_WON'))
+                                        <div class="w-full inline-flex rounded-full bg-primary bg-opacity-20 py-2 px-5 text-sm font-medium">Prospect | Won</div>
+                                    @endif
+                                @endif
+                            </td>
+                            @if (Auth::user()->role == config('constants.USER_ROLE_STAFF_C_LEVEL') || Auth::user()->role == config('constants.USER_ROLE_STAFF_MANAGEMENT'))
                             <td class="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                 <div class="flex items-center space-x-3.5">
-                                    <button wire:click="edit({{ $company->id }})" class="hover:text-primary">
+                                    <button wire:click="edit({{ $customer->id }})" class="hover:text-primary">
                                         <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M8.99981 14.8219C3.43106 14.8219 0.674805 9.50624 0.562305 9.28124C0.47793 9.11249 0.47793 8.88749 0.562305 8.71874C0.674805 8.49374 3.43106 3.20624 8.99981 3.20624C14.5686 3.20624 17.3248 8.49374 17.4373 8.71874C17.5217 8.88749 17.5217 9.11249 17.4373 9.28124C17.3248 9.50624 14.5686 14.8219 8.99981 14.8219ZM1.85605 8.99999C2.4748 10.0406 4.89356 13.5562 8.99981 13.5562C13.1061 13.5562 15.5248 10.0406 16.1436 8.99999C15.5248 7.95936 13.1061 4.44374 8.99981 4.44374C4.89356 4.44374 2.4748 7.95936 1.85605 8.99999Z"
@@ -136,7 +163,7 @@
                                                 fill="" />
                                         </svg>
                                     </button>
-                                    <button wire:click="delete({{ $company->id }})" class="hover:text-primary">
+                                    <button wire:click="delete({{ $customer->id }})" class="hover:text-primary">
                                         <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M13.7535 2.47502H11.5879V1.9969C11.5879 1.15315 10.9129 0.478149 10.0691 0.478149H7.90352C7.05977 0.478149 6.38477 1.15315 6.38477 1.9969V2.47502H4.21914C3.40352 2.47502 2.72852 3.15002 2.72852 3.96565V4.8094C2.72852 5.42815 3.09414 5.9344 3.62852 6.1594L4.07852 15.4688C4.13477 16.6219 5.09102 17.5219 6.24414 17.5219H11.7004C12.8535 17.5219 13.8098 16.6219 13.866 15.4688L14.3441 6.13127C14.8785 5.90627 15.2441 5.3719 15.2441 4.78127V3.93752C15.2441 3.15002 14.5691 2.47502 13.7535 2.47502ZM7.67852 1.9969C7.67852 1.85627 7.79102 1.74377 7.93164 1.74377H10.0973C10.2379 1.74377 10.3504 1.85627 10.3504 1.9969V2.47502H7.70664V1.9969H7.67852ZM4.02227 3.96565C4.02227 3.85315 4.10664 3.74065 4.24727 3.74065H13.7535C13.866 3.74065 13.9785 3.82502 13.9785 3.96565V4.8094C13.9785 4.9219 13.8941 5.0344 13.7535 5.0344H4.24727C4.13477 5.0344 4.02227 4.95002 4.02227 4.8094V3.96565ZM11.7285 16.2563H6.27227C5.79414 16.2563 5.40039 15.8906 5.37227 15.3844L4.95039 6.2719H13.0785L12.6566 15.3844C12.6004 15.8625 12.2066 16.2563 11.7285 16.2563Z"
@@ -154,6 +181,7 @@
                                     </button>
                                 </div>
                             </td>
+                            @endif
                         </tr>
                         @endforeach
                     </tbody>
