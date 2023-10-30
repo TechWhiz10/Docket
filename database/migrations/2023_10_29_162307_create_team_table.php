@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('team', function (Blueprint $table) {
             $table->id();
-            $table->name();
-            $table->unsignedBigInteger('company_id');
+            $table->string('name');
+            $table->unsignedBigInteger('company_id')->nullable();
             $table->foreign('company_id')->references('id')->on('company');
-            $table->unsignedBigInteger('location_id');
+            $table->unsignedBigInteger('location_id')->nullable();
             $table->foreign('location_id')->references('id')->on('location');
-            $table->unsignedBigInteger('department_id');
+            $table->unsignedBigInteger('department_id')->nullable();
             $table->foreign('department_id')->references('id')->on('department');
             $table->timestamps();
         });

@@ -20,13 +20,13 @@ return new class extends Migration
             $table->string('password', 255)->nullable()->default(Hash::make('12345678'));
             $table->string('avatar', 255)->nullable()->default('default.png');
             $table->string('phone', 255)->nullable();
-            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('company_id')->nullable();
             $table->foreign('company_id')->references('id')->on('company');
-            $table->unsignedBigInteger('location_id');
+            $table->unsignedBigInteger('location_id')->nullable();
             $table->foreign('location_id')->references('id')->on('location');
-            $table->unsignedBigInteger('department_id');
+            $table->unsignedBigInteger('department_id')->nullable();
             $table->foreign('department_id')->references('id')->on('department');
-            $table->unsignedBigInteger('team_id');
+            $table->unsignedBigInteger('team_id')->nullable();
             $table->foreign('team_id')->references('id')->on('team');
             $table->integer('role')->default('0');
             $table->integer('status')->default('1')->commnet('disable: 0, enable: 1');
