@@ -29,7 +29,7 @@ return new class extends Migration
             $table->unsignedBigInteger('team_id');
             $table->foreign('team_id')->references('id')->on('team');
             $table->integer('role')->default('0');
-            $table->integer('status')->default('1')->commnet('disable: 0, enable: 1');
+            $table->integer('status')->default('0')->commnet('pending: 0, enable: 1, reject: 2');
             $table->tinyinteger('user_type')->default('1')->commnet('user: 1, customer: 2');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

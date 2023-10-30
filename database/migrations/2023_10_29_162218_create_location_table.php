@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('company');
+            $table->integer('status')->default('0')->commnet('enable: 0, disable: 1');
             $table->timestamps();
         });
     }

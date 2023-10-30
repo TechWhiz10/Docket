@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('company', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('status')->default('0')->commnet('enable: 0, disable: 1');
             $table->timestamps();
         });
     }
