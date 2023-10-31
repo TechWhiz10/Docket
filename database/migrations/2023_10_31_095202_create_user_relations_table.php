@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('company', function (Blueprint $table) {
+        Schema::create('user_relations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('status')->default('0')->commnet('enable: 0, disable: 1');
+            $table->foreignId('user_id')->nullable();
+            $table->foreignId('relation_id')->nullable();
+            $table->tinyinteger('relation_type')->default('1')->commnet('user: 1, customer: 2');
             $table->timestamps();
+            $table->softDeletes('deleted_at', 0);
         });
     }
 
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('company');
+        Schema::dropIfExists('user_relations');
     }
 };

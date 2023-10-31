@@ -20,20 +20,14 @@ return new class extends Migration
             $table->string('password', 255)->nullable()->default(Hash::make('12345678'));
             $table->string('avatar', 255)->nullable()->default('default.png');
             $table->string('phone', 255)->nullable();
-            $table->unsignedBigInteger('company_id');
-            $table->foreign('company_id')->references('id')->on('company');
-            $table->unsignedBigInteger('location_id');
-            $table->foreign('location_id')->references('id')->on('location');
-            $table->unsignedBigInteger('department_id');
-            $table->foreign('department_id')->references('id')->on('department');
-            $table->unsignedBigInteger('team_id');
-            $table->foreign('team_id')->references('id')->on('team');
+            $table->string('title')->nullable();
             $table->integer('role')->default('0');
             $table->integer('status')->default('0')->commnet('pending: 0, enable: 1, reject: 2');
             $table->tinyinteger('user_type')->default('1')->commnet('user: 1, customer: 2');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes('deleted_at', 0);
         });
     }
 

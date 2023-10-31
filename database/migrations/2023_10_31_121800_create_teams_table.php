@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('permission', function (Blueprint $table) {
+        Schema::create('teams', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid')->unique();
+            $table->string('name', 255);
+            $table->foreignId('company_id');
+            $table->smallInteger('level');
             $table->timestamps();
+            $table->softDeletes('deleted_at', 0);
         });
     }
 
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('permission');
+        Schema::dropIfExists('teams');
     }
 };

@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('location', function (Blueprint $table) {
+        Schema::create('stages', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->unsignedBigInteger('company_id');
-            $table->foreign('company_id')->references('id')->on('company');
-            $table->integer('status')->default('0')->commnet('enable: 0, disable: 1');
+            $table->string('name', 255);
             $table->timestamps();
         });
     }
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('location');
+        Schema::dropIfExists('stages');
     }
 };
