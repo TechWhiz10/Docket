@@ -22,21 +22,22 @@
                         </div>
                         <div class="mb-4">
                             <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Email : </label>
-                            <input type="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="exampleFormControlInput1" placeholder="Enter Email" wire:model="email">
+                            <input type="email" autocomplete="nope" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="exampleFormControlInput1" placeholder="Enter Email" wire:model="email">
                             @error('email') <span class="text-red-500">{{ $message }}</span>@enderror
                         </div>
                         @if ($is_create == true)
                         <div class="mb-4">
                             <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Password : </label>
-                            <input type="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="exampleFormControlInput1" placeholder="Enter Password" wire:model="password" required>
+                            <input type="password" autocomplete="new-password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="exampleFormControlInput1" placeholder="Enter Password" wire:model="password" required>
                             @error('password') <span class="text-red-500">{{ $message }}</span>@enderror
                         </div>
                         @endif
                         <div class="mb-4">
                             <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Role : </label>
                             <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" wire:model="role">
-                                {{-- <option value="{{ config('constants.USER_ROLE_STAFF_C_LEVEL') }}">C-Level ( Staff )</option>
-                                <option value="{{ config('constants.USER_ROLE_STAFF_MANAGEMENT') }}">Management ( Staff )</option> --}}
+                                <option hidden value="">Select the Role</option>
+                                <option value="{{ config('constants.USER_ROLE_STAFF_C_LEVEL') }}">C-Level ( Staff )</option>
+                                <option value="{{ config('constants.USER_ROLE_STAFF_MANAGEMENT') }}">Manager ( Staff )</option>
                                 <option value="{{ config('constants.USER_ROLE_STAFF_DEPARTMENT_MANAGER') }}">Department Manager ( Staff )</option>
                                 <option value="{{ config('constants.USER_ROLE_STAFF_TEAM_MANAGER') }}">Team Manager ( Staff )</option>
                                 <option value="{{ config('constants.USER_ROLE_STAFF_STAFF') }}">Staff ( Staff )</option>
